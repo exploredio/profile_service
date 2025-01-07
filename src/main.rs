@@ -11,7 +11,9 @@ mod models {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    tracing_subscriber::fmt::init();
+    tracing_subscriber::fmt()
+        .with_max_level(tracing::Level::DEBUG)
+        .init();
 
     let region_provider = RegionProviderChain::default_provider().or_else("eu-central-1");
     let config = aws_config::defaults(BehaviorVersion::latest()).region(region_provider).load().await;
