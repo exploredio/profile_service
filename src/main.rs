@@ -2,11 +2,11 @@ use actix_web::{web, App, HttpServer};
 use aws_sdk_dynamodb::{Client};
 use aws_config::BehaviorVersion;
 use aws_config::meta::region::RegionProviderChain;
-use crate::dynamodb::{create_profile, get_profile, update_profile, delete_profile};
+use crate::dynamodb::{create_profile, get_profile, update_profile, delete_profile, delete_all_profiles};
 
 mod dynamodb;
 mod models {
-    pub mod profile;
+    pub mod profile_request;
 }
 
 #[actix_web::main]
@@ -38,6 +38,7 @@ async fn main() -> std::io::Result<()> {
             .service(create_profile)
             .service(get_profile)
             .service(update_profile)
+            .service(delete_all_profiles)
             .service(delete_profile)
     })
     .bind("127.0.0.1:8080")?
