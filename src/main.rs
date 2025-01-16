@@ -41,7 +41,7 @@ async fn main() -> std::io::Result<()> {
             .service(delete_all_profiles)
             .service(delete_profile)
     })
-    .bind("127.0.0.1:8082")?
+    .bind("0.0.0.0:8082")?
     .run()
     .await
 }
